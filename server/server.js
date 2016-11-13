@@ -9,7 +9,7 @@ const artistRoutes = require('./routes/artistRoutes.js');
 app.use(express.static('./client'));
 app.use(express.static(__dirname + '/../client'));
 
-app.use('top_artists', artistRoutes);
+app.use('/top_artists', artistRoutes);
 
 app.get('*', (req,res) => {
   res.sendFile(path.resolve('client', 'index.html'));
