@@ -6,7 +6,7 @@ import { getArtists } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-class TopMusic extends Component {
+export default class TopMusic extends Component {
 	  constructor(props) {
     super(props)
 
@@ -14,6 +14,7 @@ class TopMusic extends Component {
 
     }
 
+		
   }
 
 	// constructor(props) {
@@ -46,11 +47,11 @@ class TopMusic extends Component {
 
 	}
 	
-	componentDidMount() {
-		// setTimeout(this.timeout, 2000)
-		console.log(this.props, 'THE PROPS')
-		this.props.getArtists()
-	}
+	// componentDidMount() {
+	// 	// setTimeout(this.timeout, 2000)
+	// 	console.log(this.props, 'THE PROPS')
+	// 	this.props.getArtists()
+	// }
 
 	componentWillReceiveProps(props) {
 		// console.log(props)
@@ -71,8 +72,16 @@ class TopMusic extends Component {
 		// this.solo()
 	}
 
+	
+
+
+
+
 	solo() {
-		return <h1>hello solo</h1>
+		const soloStyle = {
+			color: "blue"
+		}
+		return <h1 style={soloStyle}>hello solo manersjkdflsdhf</h1>
 	}
 
 		
@@ -81,21 +90,21 @@ class TopMusic extends Component {
 	render() {
 		return(
 			<div>
-				{this.solo}
+				{this.solo()}
 			</div>
 		)
 		
 	}
 }
 
-const mapStateToProps = state => {
-  return {
-    markers: {}
-  }
-}
+// const mapStateToProps = state => {
+//   return {
+//     markers: {}
+//   }
+// }
 
-function mapDispatchToProps(){
-  return bindActionCreators({ getArtists });
-}
+// function mapDispatchToProps(){
+//   return bindActionCreators({ getArtists });
+// }
 
-export default connect(mapDispatchToProps)(TopMusic);
+// export default connect(mapDispatchToProps)(TopMusic);
