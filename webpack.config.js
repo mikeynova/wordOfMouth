@@ -17,24 +17,13 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
   ],
-  // devServer: {
-  //   hot: true,
-  //   // enable HMR on the server
-
-  //   contentBase: resolve(__dirname, 'dist'),
-  //   // match the output path
-
-  //   publicPath: '/'
-  //   // match the output `publicPath`
-  // },
   module: {
     loaders: [
       { 
         test: /\.js$/, 
         exclude: /node_modules/, 
         // loaders: ["react-hot", "babel-loader"],
-        loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=react,plugins[]=transform-runtime'] 
-        // query: { presets: ['es2015', 'react'] }
+        loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=react,plugins[]=transform-runtime']
       }
     ]
   }
