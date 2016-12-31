@@ -7,7 +7,6 @@ export default class Login extends Component {
 			<div>
 				<div className='nav'>
 					<h1 className='appName'>Word of Mouth</h1>
-					<img className='logo' src="../assets/yell.png" alt=""/>
 				</div>
 				<TopMusic />
 			</div>
