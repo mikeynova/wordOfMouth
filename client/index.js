@@ -8,6 +8,7 @@ import rootReducer from './reducers/index'
 
 import App from './components/app.js';
 import Login from './components/login.js';
+import SignUp from './components/signUp.js';
 
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
 // export const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
@@ -16,7 +17,8 @@ const router =(
 		<Provider store={createStoreWithMiddleWare(rootReducer)}>
 	    <Router history={browserHistory} >
 	      <Route path='/' component={App} >
-	      	<IndexRoute component={Login}></IndexRoute>
+	      	<IndexRoute component={Login} />
+	      	<Route path='/signup' component={SignUp} />
 	      </Route>
 	    </Router>
 		</Provider>

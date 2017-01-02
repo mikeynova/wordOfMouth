@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import TopMusic from './topMusic.js';
+import { browserHistory } from 'react-router';
 
 export default class Login extends Component {
+	signUpPage() {
+		browserHistory.push('/signup')
+	}
+
 	render() {
 		const loginBox = {
 			borderStyle: "solid",
@@ -46,8 +51,9 @@ export default class Login extends Component {
 			height: "25px"
 		}
 		const loginTitle = {
-			color: "#ADD8E6"
+			color: "grey"
 		}
+
 		return (
 			<div>
 
@@ -57,7 +63,7 @@ export default class Login extends Component {
 						<input style={loginInputs} className="loginInputs" type="text" placeholder="Username"/>
 						<input style={loginInputs} className="loginInputs" type="text" placeholder="Password"/>
 						<button style={loginButton}>Sign In</button>
-						<button style={loginButton}>Sign Up</button>
+						<button style={loginButton} onClick={this.signUpPage}>Sign Up</button>
 					</div>
 				</div>
 
