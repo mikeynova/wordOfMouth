@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/index'
 
 import App from './components/app.js';
-import Nav from './components/nav.js';
+import Login from './components/login.js';
 
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
 // export const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
@@ -16,7 +16,7 @@ const router =(
 		<Provider store={createStoreWithMiddleWare(rootReducer)}>
 	    <Router history={browserHistory} >
 	      <Route path='/' component={App} >
-	      	<IndexRoute component={Nav}></IndexRoute>
+	      	<IndexRoute component={Login}></IndexRoute>
 	      </Route>
 	    </Router>
 		</Provider>
