@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 export default class TopMusic extends Component {
-	  constructor(props) {
-    super(props)
-    this.state = {
-    }
+  constructor(props) {
+  super(props)
+	  this.state = {
+	  }
     
   }
 

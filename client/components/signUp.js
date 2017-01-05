@@ -1,6 +1,58 @@
 import React, { Component } from 'react';
+import validate from '../helpers/signUpValidation.js'
 
 export default class SignUp extends Component {
+	constructor(props) {
+  super(props)
+	  this.state = {
+	  	first: '',
+	  	last: '',
+	  	email: '',
+	  	password: '',
+	  	repeatPassword: ''
+	  }   
+  }
+
+	onChangeFirst(e) {
+		this.setState({
+			first: e.target.value
+		})
+	}
+
+	onChangeLast(e) {
+		this.setState({
+			last: e.target.value
+		})
+	}
+
+	onChangeEmail(e) {
+		this.setState({
+			email: e.target.value
+		})
+	}  
+
+	onChangePassword(e) {
+		this.setState({
+			password: e.target.value
+		})
+	}
+
+	onChangeRepeatPassword(e) {
+		this.setState({
+			repeatPassword: e.target.value
+		})
+	}
+
+	submit(e) {
+		e.preventDefault();
+		//run validation
+		validate.first(this.state.first);
+		validate.last(this.state.last);
+		validate.email(this.state.email);
+		validate.password(this.state.password);
+		validate.repeatPassword(this.state.repeatPassword);
+		console.log('inside of submit function')
+	}
 	render() {
 		const loginBox = {
 			borderStyle: "solid",
@@ -53,12 +105,14 @@ export default class SignUp extends Component {
 			<div style={loginBox}>
 				<h2 style={loginTitle}>Word of Mouth Sign Up</h2>
 				<div style={inputContainer}>
-					<input style={loginInputs} className="loginInputs" type="text" placeholder="First"/>
-					<input style={loginInputs} className="loginInputs" type="text" placeholder="Last"/>
-					<input style={loginInputs} className="loginInputs" type="text" placeholder="email"/>
-					<input style={loginInputs} className="loginInputs" type="text" placeholder="password"/>
-					<input style={loginInputs} className="loginInputs" type="text" placeholder="repeat password"/>	
-					<button style={loginButton}>Confirm</button>
+					<form onSubmit={this.submit.bind(this)}>
+						<input style={loginInputs} className="loginInputs" type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
+						<input style={loginInputs} className="loginInputs" type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
+						<input style={loginInputs} className="loginInputs" type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
+						<input style={loginInputs} className="loginInputs" type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
+						<input style={loginInputs} className="loginInputs" type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>	
+						<button style={loginButton}>Confirm</button>
+					</form>
 				</div>
 			</div>
 		)
