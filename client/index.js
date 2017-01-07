@@ -11,10 +11,10 @@ import Login from './components/login.js';
 import SignUp from './components/signUp.js';
 
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
-// export const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
+export const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
 
 const router =(
-		<Provider store={createStoreWithMiddleWare(rootReducer)}>
+		<Provider store={store}>
 	    <Router history={browserHistory} >
 	      <Route path='/' component={App} >
 	      	<IndexRoute component={Login} />

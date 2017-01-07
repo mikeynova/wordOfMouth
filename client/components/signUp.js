@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import validate from '../helpers/signUpValidation.js'
+import validate from '../helpers/signUpValidation.js';
+import { connect } from 'react-redux';
+import * as actions from '../actions/index.js';
 
-export default class SignUp extends Component {
+class SignUp extends Component {
 	constructor(props) {
   super(props)
 	  this.state = {
@@ -51,7 +53,6 @@ export default class SignUp extends Component {
 		validate.email(this.state.email);
 		validate.password(this.state.password);
 		validate.repeatPassword(this.state.repeatPassword);
-		console.log('inside of submit function')
 	}
 	render() {
 		const loginBox = {
@@ -107,6 +108,7 @@ export default class SignUp extends Component {
 				<div style={inputContainer}>
 					<form onSubmit={this.submit.bind(this)}>
 						<input style={loginInputs} className="loginInputs" type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
+						<span id="firstName"></span>
 						<input style={loginInputs} className="loginInputs" type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
 						<input style={loginInputs} className="loginInputs" type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
 						<input style={loginInputs} className="loginInputs" type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
@@ -118,3 +120,11 @@ export default class SignUp extends Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		firstError: state.firstError
+	}
+}
+
+export default connect(mapStateToProps, actions)(SignUp);

@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import artistReducer from './artistReducer';
+import firstError from './firstError';
 
 const rootReducer = combineReducers({
-	artists: artistReducer
+	firstError: firstError
 })
 
 export default rootReducer;

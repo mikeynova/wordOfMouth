@@ -1,8 +1,8 @@
-import { TOP_ARTISTS } from '../actions/index';
+import { FIRST_ERROR } from '../actions/index';
 
 export default (state = {}, action) => {
   switch(action.type) {
-    case TOP_ARTISTS:
+    case FIRST_ERROR:
       return action.payload;
   };
   return state;
