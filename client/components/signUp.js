@@ -3,6 +3,21 @@ import validate from '../helpers/signUpValidation.js';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index.js';
 
+import injectSheet from 'react-jss';
+
+const styles = {
+  focusBoarder: {
+ 		'&:focus': {
+	    outline: "none",
+      boxShadow: "0px 0px 8px blue"
+ 		}
+  },
+  label: {
+    fontWeight: 'bold'
+  }
+}
+
+@injectSheet(styles)
 class SignUp extends Component {
 	constructor(props) {
   super(props)
@@ -47,14 +62,16 @@ class SignUp extends Component {
 
 	submit(e) {
 		e.preventDefault();
+		const firstErrorEl = document.getElementById('firstName');
 		//run validation
-		validate.first(this.state.first);
+		validate.first(this.state.first, firstErrorEl);
 		validate.last(this.state.last);
 		validate.email(this.state.email);
 		validate.password(this.state.password);
 		validate.repeatPassword(this.state.repeatPassword);
 	}
 	render() {
+    const {sheet: {classes}, children} = this.props
 		const loginBox = {
 			borderStyle: "solid",
 			borderWidth: "2px",
@@ -100,19 +117,35 @@ class SignUp extends Component {
 		}
 		const loginTitle = {
 			color: "grey",
-			lineHeight: "100px"
+			lineHeight: "27px"
 		}
+		const firstNameError = {
+			// display: "none",
+			lineHeight: "20px",
+	    // opacity: '0',
+	    animation: 'fade 2s linear',
+	    WebkitTransition: 'opacity .5s ease-in-out',
+   		MozTransition: 'opacity .5s ease-in-out',
+   		msTransition: 'opacity .5s ease-in-out',
+   		OTransition: 'opacity .5s ease-in-out',
+   		transition: 'opacity .5s ease-in-out'
+			// @keyframes fade {
+			//   0%,100% { opacity: 0 }
+			//   50% { opacity: 1 }
+			// }
+		}
+
 		return (
 			<div style={loginBox}>
-				<h2 style={loginTitle}>Word of Mouth Sign Up</h2>
 				<div style={inputContainer}>
+				<h3 style={loginTitle}>Word of Mouth Sign Up</h3>
 					<form onSubmit={this.submit.bind(this)}>
-						<input style={loginInputs} className="loginInputs" type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
-						<span id="firstName"></span>
-						<input style={loginInputs} className="loginInputs" type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
-						<input style={loginInputs} className="loginInputs" type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
-						<input style={loginInputs} className="loginInputs" type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
-						<input style={loginInputs} className="loginInputs" type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>	
+						<input style={loginInputs} className={classes.focusBoarder} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
+						<span style={firstNameError} id="firstName"></span>
+						<input style={loginInputs} className={classes.focusBoarder} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
+						<input style={loginInputs} className={classes.focusBoarder} type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
+						<input style={loginInputs} className={classes.focusBoarder} type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
+						<input style={loginInputs} className={classes.focusBoarder} type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>	
 						<button style={loginButton}>Confirm</button>
 					</form>
 				</div>

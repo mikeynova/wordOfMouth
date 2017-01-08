@@ -1,7 +1,12 @@
 import * as actions from '../actions/index.js';
 
-exports.first = function(first) {
-	actions.firstNameError(first)
+exports.first = function(first, error) {
+	// actions.firstNameError(first)
+	if(error.innerHTML === 'SOME ERROR') {
+		return;
+	} else {
+		error.innerHTML += 'SOME ERROR'
+	}
 	// console.log(first + ': ' + 'first validation function')
 	// if(first === "") {
 	// 	alert('wrong')
