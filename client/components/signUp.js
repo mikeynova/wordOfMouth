@@ -5,16 +5,19 @@ import * as actions from '../actions/index.js';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import injectSheet from 'react-jss';
 
-exports.test = function(x) {
-		console.log('this is a test')
-	}
-
 const styles = {
-  focusBoarder: {
+  inputBox: {
+ 			textAlign: "center",
+			margin: "5px",
+			WebkitBorderRadius: "300px",
+			borderStyle: "solid",
+			borderColor: "#ADD8E6",
+			width: "225px",
+			height: "25px",
  		'&:focus': {
 	    outline: "none",
       boxShadow: "0px 0px 8px blue"
- 		}
+ 		},
   },
   label: {
     fontWeight: 'bold'
@@ -25,7 +28,49 @@ const styles = {
 	},
 	preFirstNameError: {
 		color: 'blue'
-	}
+	},
+	loginBox: {
+		borderStyle: "solid",
+		borderWidth: "2px",
+		borderColor: "transparent",
+		borderRadius: "3%",
+		textAlign: "center",
+		boxShadow: "0px 0px 15px 1px #ADD8E6",
+		minHeight: "400px",
+		minWidth: "400px",
+		position: "fixed",
+		left: "50%",
+		top: "50%",
+		transform: "translate(-50%, -50%)",
+		lineHeight: "150px"
+	},
+	inputContainer: {
+		transform: "translate(-50%, -50%)",
+		position: "fixed",
+		left: "50%",
+		top: "50%"
+	},
+	loginButton: {
+			display: "-webkit-box",
+			margin: "auto",
+			marginBottom: "5px",
+			width: "150px",
+			borderStyle: "solid",
+			WebkitBorderRadius: "300px",
+			backgroundColor: "#ADD8E6",
+			borderColor: "#ADD8E6",
+			color: "white",
+			height: "25px",
+			marginTop: "10px",
+	'&:focus': {
+    outline: "none",
+    boxShadow: "0px 0px 8px blue"
+		}
+	},
+	loginTitle: {
+			color: "grey",
+			lineHeight: "27px"
+		}
 }
 
 @injectSheet(styles)
@@ -52,7 +97,6 @@ class SignUp extends Component {
   			preFirstNameError: classes.firstNameError
   		})
   	}
-
   }
 
 	onChangeFirst(e) {
@@ -96,53 +140,6 @@ class SignUp extends Component {
 	}
 	render() {
     const {sheet: {classes}, children} = this.props
-		const loginBox = {
-			borderStyle: "solid",
-			borderWidth: "2px",
-			borderColor: "transparent",
-			borderRadius: "3%",
-			textAlign: "center",
-			boxShadow: "0px 0px 15px 1px #ADD8E6",
-			minHeight: "400px",
-			minWidth: "400px",
-			position: "fixed",
-			left: "50%",
-			top: "50%",
-			transform: "translate(-50%, -50%)",
-			lineHeight: "150px"
-		}
-		const loginInputs = {
-			textAlign: "center",
-			margin: "5px",
-			WebkitBorderRadius: "300px",
-			borderStyle: "solid",
-			borderColor: "#ADD8E6",
-			width: "225px",
-			height: "25px"
-		}
-		const inputContainer = {
-			transform: "translate(-50%, -50%)",
-			position: "fixed",
-			left: "50%",
-			top: "50%"
-		}
-		const loginButton = {
-			display: "-webkit-box",
-			margin: "auto",
-			marginBottom: "5px",
-			width: "150px",
-			borderStyle: "solid",
-			WebkitBorderRadius: "300px",
-			backgroundColor: "#ADD8E6",
-			borderColor: "#ADD8E6",
-			color: "white",
-			height: "25px",
-			marginTop: "10px"
-		}
-		const loginTitle = {
-			color: "grey",
-			lineHeight: "27px"
-		}
 		// const firstNameError = {
 			// display: "none",
 			// lineHeight: "20px",
@@ -161,17 +158,17 @@ class SignUp extends Component {
 		// }
 
 		return (
-			<div style={loginBox}>
-				<div style={inputContainer}>
-				<h3 style={loginTitle}>Word of Mouth Sign Up</h3>
+			<div className={classes.loginBox}>
+				<div className={classes.inputContainer}>
+				<h3 className={classes.loginTitle}>Word of Mouth Sign Up</h3>
 					<form onSubmit={this.submit.bind(this)}>
-						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
+						<input className={classes.inputBox} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
 						<span className={this.state.preFirstNameError} id="firstName"></span>
-						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
-						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
-						<input style={loginInputs} className={this.state.inputStyle} type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
-						<input style={loginInputs} className={this.state.inputStyle} type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>	
-						<button style={loginButton}>Confirm</button>
+						<input className={classes.inputBox} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
+						<input className={classes.inputBox} type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
+						<input className={classes.inputBox} type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
+						<input className={classes.inputBox} type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>	
+						<button className={classes.loginButton}>Confirm</button>
 					</form>
 				</div>
 			</div>
