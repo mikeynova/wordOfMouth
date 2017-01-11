@@ -11,9 +11,6 @@ const styles = {
 	    outline: "none",
       boxShadow: "0px 0px 8px blue"
  		}
-  },
-  label: {
-    fontWeight: 'bold'
   }
 }
 
