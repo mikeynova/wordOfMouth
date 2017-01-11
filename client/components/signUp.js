@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import validate from '../helpers/signUpValidation.js';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index.js';
+import ReactTransitionGroup from 'react-addons-transition-group'
+import Promise from 'bluebird';
+Promise.promisifyAll(validate);
+
 
 import injectSheet from 'react-jss';
+
+exports.test = function(x) {
+		console.log('this is a test')
+	}
 
 const styles = {
   focusBoarder: {
@@ -11,19 +19,28 @@ const styles = {
 	    outline: "none",
       boxShadow: "0px 0px 8px blue"
  		}
-  }
+  },
+  label: {
+    fontWeight: 'bold'
+  },
+  // firstNameError: {
+		// 		lineHeight: "20px",
+		// 		color: 'red'
+		// 	}
 }
 
 @injectSheet(styles)
 class SignUp extends Component {
 	constructor(props) {
   super(props)
+	const {sheet: {classes}, children} = this.props
 	  this.state = {
 	  	first: '',
 	  	last: '',
 	  	email: '',
 	  	password: '',
-	  	repeatPassword: ''
+	  	repeatPassword: '',
+	  	inputStyle: classes.focusBoarder
 	  }   
   }
 
@@ -61,7 +78,8 @@ class SignUp extends Component {
 		e.preventDefault();
 		const firstErrorEl = document.getElementById('firstName');
 		//run validation
-		validate.first(this.state.first, firstErrorEl);
+		console.log(validate.first);
+		validate.first(this.state.first, firstErrorEl).then(console.log('anythin?'))
 		validate.last(this.state.last);
 		validate.email(this.state.email);
 		validate.password(this.state.password);
@@ -116,33 +134,34 @@ class SignUp extends Component {
 			color: "grey",
 			lineHeight: "27px"
 		}
-		const firstNameError = {
+		// const firstNameError = {
 			// display: "none",
-			lineHeight: "20px",
-	    // opacity: '0',
-	    animation: 'fade 2s linear',
-	    WebkitTransition: 'opacity .5s ease-in-out',
-   		MozTransition: 'opacity .5s ease-in-out',
-   		msTransition: 'opacity .5s ease-in-out',
-   		OTransition: 'opacity .5s ease-in-out',
-   		transition: 'opacity .5s ease-in-out'
+			// lineHeight: "20px",
+	  //   // opacity: '0',
+	  //   animation: 'fade 2s linear',
+	  //   WebkitTransition: 'opacity .5s ease-in-out',
+   // 		MozTransition: 'opacity .5s ease-in-out',
+   // 		msTransition: 'opacity .5s ease-in-out',
+   // 		OTransition: 'opacity .5s ease-in-out',
+   // 		transition: 'opacity .5s ease-in-out'
 			// @keyframes fade {
 			//   0%,100% { opacity: 0 }
 			//   50% { opacity: 1 }
 			// }
-		}
+			// color: 'red'
+		// }
 
 		return (
 			<div style={loginBox}>
 				<div style={inputContainer}>
 				<h3 style={loginTitle}>Word of Mouth Sign Up</h3>
 					<form onSubmit={this.submit.bind(this)}>
-						<input style={loginInputs} className={classes.focusBoarder} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
-						<span style={firstNameError} id="firstName"></span>
-						<input style={loginInputs} className={classes.focusBoarder} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
-						<input style={loginInputs} className={classes.focusBoarder} type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
-						<input style={loginInputs} className={classes.focusBoarder} type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
-						<input style={loginInputs} className={classes.focusBoarder} type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>	
+						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
+						<ReactTransitionGroup style={this.state.firstNameError} id="firstName"></ReactTransitionGroup>
+						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
+						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
+						<input style={loginInputs} className={this.state.inputStyle} type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
+						<input style={loginInputs} className={this.state.inputStyle} type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>	
 						<button style={loginButton}>Confirm</button>
 					</form>
 				</div>
