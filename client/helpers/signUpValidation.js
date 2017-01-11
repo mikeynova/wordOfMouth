@@ -7,8 +7,9 @@ exports.first = function(first, error) {
 		return;
 	} else {
 		error.innerHTML += 'SOME ERROR'
+		return true;
 	}
-	console.log(test.test)
+	// console.log(test.test)
 	// console.log(first + ': ' + 'first validation function')
 	// if(first === "") {
 	// 	alert('wrong')

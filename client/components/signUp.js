@@ -78,8 +78,13 @@ class SignUp extends Component {
 		e.preventDefault();
 		const firstErrorEl = document.getElementById('firstName');
 		//run validation
-		console.log(validate.first);
-		validate.first(this.state.first, firstErrorEl).then(console.log('anythin?'))
+		// console.log(validate.first);
+		// Promise.promisify(
+		// 	()=> { 
+		// 		return 
+		var p2 = validate.first(this.state.first, firstErrorEl)()
+		p2.then((res) => console.log(res)); 
+
 		validate.last(this.state.last);
 		validate.email(this.state.email);
 		validate.password(this.state.password);
