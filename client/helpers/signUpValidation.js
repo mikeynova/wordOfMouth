@@ -3,7 +3,6 @@ import test from '../components/signUp.js';
 import { dispatch } from '../index.js'
 
 exports.first = function(first, error) {
-	console.log('dispatch: ', dispatch)
 	if(error.innerHTML === 'SOME ERROR') {
 		return;
 	} else if(!/[a-zA-Z\s:]/.test(first)){
