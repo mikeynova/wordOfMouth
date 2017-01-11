@@ -1,23 +1,16 @@
 import * as actions from '../actions/index.js';
-import test from '../components/signUp.js'
+import test from '../components/signUp.js';
+import { dispatch } from '../index.js'
 
 exports.first = function(first, error) {
-	// actions.firstNameError(first)
+	console.log('dispatch: ', dispatch)
 	if(error.innerHTML === 'SOME ERROR') {
 		return;
-	} else {
+	} else if(!/[a-zA-Z\s:]/.test(first)){
+		dispatch(actions.firstNameError('error'))
 		error.innerHTML += 'SOME ERROR'
 		return true;
 	}
-	// console.log(test.test)
-	// console.log(first + ': ' + 'first validation function')
-	// if(first === "") {
-	// 	alert('wrong')
-	// }
-	// must be letters only
-	// console.log(/[a-zA-Z\s:]/.test(first));
-	// blah.innerHTML = blah.innerHTML + 'sometext';
-	// document.prepend() the error to something bellow the text box
 }
 
 exports.last = function(last) {

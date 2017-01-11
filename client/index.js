@@ -12,6 +12,7 @@ import SignUp from './components/signUp.js';
 
 const createStoreWithMiddleWare = applyMiddleware(thunk)(createStore);
 export const store = createStoreWithMiddleWare(rootReducer, window.devToolsExtension ? window.devToolsExtension() : f => f);
+export const dispatch = store.dispatch;
 
 const router =(
 		<Provider store={store}>

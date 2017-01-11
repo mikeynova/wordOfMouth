@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import validate from '../helpers/signUpValidation.js';
 import { connect } from 'react-redux';
 import * as actions from '../actions/index.js';
-import ReactTransitionGroup from 'react-addons-transition-group'
-import Promise from 'bluebird';
-Promise.promisifyAll(validate);
-
-
+import ReactTransitionGroup from 'react-addons-transition-group';
 import injectSheet from 'react-jss';
 
 exports.test = function(x) {
@@ -23,10 +19,13 @@ const styles = {
   label: {
     fontWeight: 'bold'
   },
-  // firstNameError: {
-		// 		lineHeight: "20px",
-		// 		color: 'red'
-		// 	}
+  firstNameError: {
+		lineHeight: "20px",
+		color: 'red'
+	},
+	preFirstNameError: {
+		color: 'blue'
+	}
 }
 
 @injectSheet(styles)
@@ -40,8 +39,20 @@ class SignUp extends Component {
 	  	email: '',
 	  	password: '',
 	  	repeatPassword: '',
-	  	inputStyle: classes.focusBoarder
+	  	inputStyle: classes.focusBoarder,
+	  	firstNameError: classes.firstNameError,
+	  	preFirstNameError: classes.preFirstNameError
 	  }   
+  }
+
+  componentWillUpdate(props) {
+	if(props.firstError !== this.props.firstError) {
+	  const {sheet: {classes}, children} = this.props;
+  		this.setState({
+  			preFirstNameError: classes.firstNameError
+  		})
+  	}
+
   }
 
 	onChangeFirst(e) {
@@ -77,14 +88,7 @@ class SignUp extends Component {
 	submit(e) {
 		e.preventDefault();
 		const firstErrorEl = document.getElementById('firstName');
-		//run validation
-		// console.log(validate.first);
-		// Promise.promisify(
-		// 	()=> { 
-		// 		return 
-		var p2 = validate.first(this.state.first, firstErrorEl)()
-		p2.then((res) => console.log(res)); 
-
+		validate.first(this.state.first, firstErrorEl);
 		validate.last(this.state.last);
 		validate.email(this.state.email);
 		validate.password(this.state.password);
@@ -162,7 +166,7 @@ class SignUp extends Component {
 				<h3 style={loginTitle}>Word of Mouth Sign Up</h3>
 					<form onSubmit={this.submit.bind(this)}>
 						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
-						<ReactTransitionGroup style={this.state.firstNameError} id="firstName"></ReactTransitionGroup>
+						<span className={this.state.preFirstNameError} id="firstName"></span>
 						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
 						<input style={loginInputs} className={this.state.inputStyle} type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
 						<input style={loginInputs} className={this.state.inputStyle} type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
