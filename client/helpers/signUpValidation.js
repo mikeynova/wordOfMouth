@@ -1,4 +1,5 @@
 import * as actions from '../actions/index.js';
+import test from '../components/signUp.js'
 
 exports.first = function(first, error) {
 	// actions.firstNameError(first)
@@ -7,6 +8,7 @@ exports.first = function(first, error) {
 	} else {
 		error.innerHTML += 'SOME ERROR'
 	}
+	console.log(test.test)
 	// console.log(first + ': ' + 'first validation function')
 	// if(first === "") {
 	// 	alert('wrong')

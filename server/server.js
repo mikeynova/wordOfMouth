@@ -19,8 +19,8 @@ app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, '../client/index.html'));
 });
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 app.listen(port, function() {
-  console.log('8000 is runnning!');
+  console.log('3000 is runnning!');
 });
