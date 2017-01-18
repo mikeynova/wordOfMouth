@@ -1,5 +1,5 @@
 var connection = require('./dbConfig');
-var db = 'newMusic';
+var db = 'Users';
 
 
 var table = ('CREATE TABLE IF NOT EXISTS Artist (id INT(100) NOT NULL AUTO_INCREMENT, name TINYTEXT, PRIMARY KEY(id))');
