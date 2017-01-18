@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TopMusic from './topMusic.js';
 import { browserHistory } from 'react-router';
 
 export default class Login extends Component {

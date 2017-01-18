@@ -1,28 +1,64 @@
-import * as actions from '../actions/index.js';
+import * as actions from '../actions/signUpValidationActions.js';
 import test from '../components/signUp.js';
 import { dispatch } from '../index.js'
 
 exports.first = function(first, error) {
-	if(error.innerHTML === 'SOME ERROR') {
+	if(error.innerHTML.length && (/^\s*$/.test(first))) {
 		return;
-	} else if(!/[a-zA-Z\s:]/.test(first)){
-		dispatch(actions.firstNameError('error'))
-		error.innerHTML += 'SOME ERROR'
+	} else if(!(/^\s*$/.test(first))) {
+			error.innerHTML = "";
+			dispatch(actions.firstNameError('no error'));
+	} else if((/^\s*$/.test(first))) {
+			dispatch(actions.firstNameError('error'));
+			error.innerHTML += 'enter your first name here';
 		return true;
 	}
 }
 
-exports.last = function(last) {
-	// console.log(last + ': ' + 'last validation function')
+exports.last = function(last, error) {
+	if(error.innerHTML.length && (/^\s*$/.test(last))) {
+		return;
+	} else if(!(/^\s*$/.test(last))) {
+			error.innerHTML = "";
+			dispatch(actions.lastNameError('no error'));
+	} else if((/^\s*$/.test(last))) {
+			dispatch(actions.lastNameError('error'));
+			error.innerHTML += 'enter your last name here';
+		return true;
+	}
 }
 
-exports.email = function(email) {
-	// console.log(email + ': ' + 'email validation function')
+exports.email = function(email, error) {
+	if(error.innerHTML.length && !(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email))) {
+		return;
+	} else if((/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email))) {
+			error.innerHTML = '';
+			dispatch(actions.emailError('no error'));
+	} else if(!(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email))) {
+			dispatch(actions.emailError('error'));
+			error.innerHTML += 'please enter a valid email';
+	}
 }
 
-exports.password = function(password) {
-	// console.log(password + ': ' + 'password validation funciton')
+exports.password = function(password, repeatPassword, error) {
+	if(error.innerHTML.length && (/^\s*$/.test(password))) {
+		return
+	} else if(!(/^\s*$/.test(password))) {
+			error.innerHTML = '';
+			dispatch(actions.passwordError('no error'));
+	} else if ((/^\s*$/.test(password))) {
+			dispatch(actions.passwordError('error'));
+			error.innerHTML += 'please enter a password';
+	}
 }
-exports.repeatPassword = function(repeatPassword) {
-	// console.log(repeatPassword + ': ' + 'repeatPassword validation function')
+exports.repeatPassword = function(repeatPassword, password, error) {
+	if(error.innerHTML.length && (/^\s*$/.test(repeatPassword))) {
+		return
+	} else if (error.innerHTML.length < 1 && password !== repeatPassword || error.innerHTML.length < 1 && (/^\s*$/.test(repeatPassword))) {
+			dispatch(actions.repeatPasswordError('error'));
+			error.innerHTML += 'please repeat password';
+	} else if(password === repeatPassword && !(/^\s*$/.test(repeatPassword))) {
+			error.innerHTML = '';
+			dispatch(actions.repeatPasswordError('no error'));
+	}
 }
