@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { actions } from '../actions/signUpValidationActions.js';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import injectSheet from 'react-jss';
+import axios from 'axios';
 
 const styles = {
   inputBox: {
@@ -168,6 +169,7 @@ class SignUp extends Component {
 ///////////////////////////////////////////
   	if(this.props.repeatPasswordError === 'no error' && this.props.passwordError === 'no error' && this.props.emailError === 'no error' && this.props.lastError === 'no error' && this.props.firstError === 'no error') {
   		console.log('woah');
+  		axios.post('/signUp_users', {first: this.state.first, last: this.state.last, email: this.state.email, password: this.state.password})
   	}
   }
 

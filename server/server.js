@@ -4,12 +4,17 @@ const path = require('path');
 const config = require('../webpack.config');
 const webpack = require('webpack');
 const compiler = webpack(config);
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 const db = require('./db/dbConfig.js');
 const tables = require('./db/tables.js');
-const artistRoutes = require('./routes/artistRoutes.js');
+const signUpUsersRoutes = require('./routes/signUpUsersRoutes.js');
 
-app.use('/top_artists', artistRoutes);
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+
+app.use('/signUp_users', signUpUsersRoutes);
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
 }));
