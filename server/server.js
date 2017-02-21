@@ -10,6 +10,8 @@ const bodyParser = require('body-parser');
 const db = require('./db/dbConfig.js');
 const tables = require('./db/tables.js');
 const signUpUsersRoutes = require('./routes/signUpUsersRoutes.js');
+const request = require('request');
+const cheerio = require('cheerio');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());

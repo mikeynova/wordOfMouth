@@ -173,6 +173,10 @@ class SignUp extends Component {
   	}
   }
 
+  componentDidMount()  {
+  	// axios.get('/getSound')
+  }
+
 	onChangeFirst(e) {
 		this.setState({
 			first: e.target.value
