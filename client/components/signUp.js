@@ -174,7 +174,7 @@ class SignUp extends Component {
   }
 
   componentDidMount()  {
-  	// axios.get('/getSound')
+  	axios.get('/getSound')
   }
 
 	onChangeFirst(e) {
