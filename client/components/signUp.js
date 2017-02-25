@@ -5,6 +5,7 @@ import { actions } from '../actions/signUpValidationActions.js';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import injectSheet from 'react-jss';
 import axios from 'axios';
+import network from '../server/soundcloud.js';
 
 const styles = {
   inputBox: {
@@ -175,6 +176,7 @@ class SignUp extends Component {
 
   componentDidMount()  {
   	// axios.get('/getSound')
+  	console.log(network);
   }
 
 	onChangeFirst(e) {
