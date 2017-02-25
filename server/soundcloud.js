@@ -1,25 +1,15 @@
 var page = require('webpage').create();
+var network = {}
+var flag = true;
 
-page.open('https://soundcloud.com/signin', function(status) {
-  console.log("Status: " + status);
-  if(status === "success") {
-  	page.evaluate(function() {
-  		document.getElementsByClassName('textfield__input sc-input sc-input-large')[0].value = 'mikeynova';
-      document.getElementsByClassName('textfield__input sc-input sc-input-large')[0].select();
-    })
+page.onResourceRequested = function(request) {
+  var found = request.url.search('likes');
+  if(found !== -1 && found < 50 && request.url.length > 40 && flag) {
+    flag = false;
+    network.likesURL = request.url;
   }
-  page.sendEvent('keypress', page.event.key.Enter);
-  setTimeout(function() {
-    // page.evaluate(function() {
-      console.log('Status: ' + status + ', page loaded');
-      // document.getElementById('formControl_184').value = "pubnub1"
-    // })
-    page.render('example.png');
+};
+
+page.open('https://soundcloud.com/' + username + '/likes', function(status) {
     phantom.exit();
-  }, 3000)
- //  page.onLoadFinished = function(status) {
-	//   console.log('Status: ' + status + ', page loaded');
-   //  page.render('example.png');
-	//   phantom.exit();
-	// };
 });
