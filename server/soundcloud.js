@@ -1,15 +1,36 @@
-var page = require('webpage').create();
-var network = {}
-var flag = true;
+// var page = require('webpage').create();
+const phantom = require('phantom');
 
-page.onResourceRequested = function(request) {
-  var found = request.url.search('likes');
-  if(found !== -1 && found < 50 && request.url.length > 40 && flag) {
-    flag = false;
-    network.likesURL = request.url;
-  }
-};
+(async function() {
+    const instance = await phantom.create();
+    const page = await instance.createPage();
+    await page.on("onResourceRequested", function(requestData) {
+        console.info('Requesting', requestData.url)
+    });
+ 
+    const status = await page.open('https://stackoverflow.com/');
+    console.log(status);
+ 
+    const content = await page.property('content');
+    console.log(content);
+ 
+    await instance.exit();
+}());
 
-page.open('https://soundcloud.com/' + username + '/likes', function(status) {
-    phantom.exit();
-});
+// const phantom = require('phantom');
+
+// async function() {
+//     const instance = await phantom.create();
+//     const page = await instance.createPage();
+//     await page.on("onResourceRequested", function(requestData) {
+//         console.info('Requesting', requestData.url)
+//     });
+
+//     const status = await page.open('https://stackoverflow.com/');
+//     console.log(status);
+
+//     const content = await page.property('content');
+//     console.log(content);
+
+//     await instance.exit();
+// }();
