@@ -6,16 +6,17 @@ const webpack = require('webpack');
 const compiler = webpack(config);
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const request = require('request');
+const cheerio = require('cheerio');
 
 const db = require('./db/dbConfig.js');
 const tables = require('./db/tables.js');
 const signUpUsersRoutes = require('./routes/signUpUsersRoutes.js');
-const request = require('request');
-const cheerio = require('cheerio');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
+app.use('/getSound', signUpUsersRoutes);
 app.use('/signUp_users', signUpUsersRoutes);
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
