@@ -1,4 +1,4 @@
-const controllers = require('../controllers/signUpUsersCtrl.js');
+const controllers = require('../controllers/soundcloudCtrl.js');
 const router = require('express').Router();
 
 for (var route in controllers) {
