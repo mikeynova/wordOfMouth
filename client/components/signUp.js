@@ -69,6 +69,7 @@ const styles = {
 			color: "white",
 			height: "25px",
 			marginTop: "10px",
+			cursor: "pointer",
 	'&:focus': {
     outline: "none",
     boxShadow: "0px 0px 8px blue"
@@ -170,12 +171,10 @@ class SignUp extends Component {
   	if(this.props.repeatPasswordError === 'no error' && this.props.passwordError === 'no error' && this.props.emailError === 'no error' && this.props.lastError === 'no error' && this.props.firstError === 'no error') {
   		console.log('woah');
   		axios.post('/signUp', {first: this.state.first, last: this.state.last, email: this.state.email, password: this.state.password})
+  			.then(() => {
+  				console.log('back to client')
+  			}) 
   	}
-  }
-
-  componentDidMount()  {
-  	axios.get('/getSound')
-  	// console.log(network);
   }
 
 	onChangeFirst(e) {
