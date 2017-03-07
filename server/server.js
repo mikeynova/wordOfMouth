@@ -12,11 +12,14 @@ const cheerio = require('cheerio');
 const db = require('./db/dbConfig.js');
 const tables = require('./db/tables.js');
 const soundcloudRoutes = require('./routes/soundcloudRoutes.js');
+const signUpRoutes = require('./routes/signUpRoutes');
 
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
 app.use('/getSound', soundcloudRoutes);
+app.use('/signUp', signUpRoutes);
+
 app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
 }));

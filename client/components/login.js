@@ -40,7 +40,8 @@ export default class Login extends Component {
 			backgroundColor: "#ADD8E6",
 			borderColor: "#ADD8E6",
 			color: "white",
-			height: "25px"
+			height: "25px",
+			cursor: "pointer"
 		}
 		const loginInputs = {
 			textAlign: "center",
