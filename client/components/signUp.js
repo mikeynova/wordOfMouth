@@ -169,7 +169,7 @@ class SignUp extends Component {
 ///////////////////////////////////////////
   	if(this.props.repeatPasswordError === 'no error' && this.props.passwordError === 'no error' && this.props.emailError === 'no error' && this.props.lastError === 'no error' && this.props.firstError === 'no error') {
   		console.log('woah');
-  		axios.post('/signUp_users', {first: this.state.first, last: this.state.last, email: this.state.email, password: this.state.password})
+  		axios.post('/signUp', {first: this.state.first, last: this.state.last, email: this.state.email, password: this.state.password})
   	}
   }
 
