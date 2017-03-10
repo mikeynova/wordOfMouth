@@ -8,13 +8,13 @@ import axios from 'axios';
 
 const styles = {
   inputBox: {
- 			textAlign: "center",
 			margin: "5px",
-			WebkitBorderRadius: "300px",
+			marginLeft: "0px",
+			WebkitBorderRadius: "3px",
 			borderStyle: "solid",
 			borderColor: "#ADD8E6",
-			width: "225px",
-			height: "25px",
+			width: "450px",
+			height: "35px",
  		'&:focus': {
 	    outline: "none",
       boxShadow: "0px 0px 8px blue"
@@ -22,6 +22,11 @@ const styles = {
   },
   label: {
     fontWeight: 'bold'
+  },
+  inputTitles: {
+  	margin: "0px",
+  	textAlign: "left",
+  	paddingTop: "10px"
   },
   error: {
 		lineHeight: "20px",
@@ -41,20 +46,19 @@ const styles = {
 		borderWidth: "2px",
 		borderColor: "transparent",
 		borderRadius: "3%",
-		textAlign: "center",
 		boxShadow: "0px 0px 15px 1px #ADD8E6",
-		minHeight: "400px",
-		minWidth: "400px",
+		minHeight: "500px",
+		minWidth: "910px",
 		position: "fixed",
 		left: "50%",
 		top: "50%",
 		transform: "translate(-50%, -50%)",
-		lineHeight: "150px"
+		// lineHeight: "150px"
 	},
 	inputContainer: {
 		transform: "translate(-50%, -50%)",
 		position: "fixed",
-		left: "50%",
+		left: "30%",
 		top: "50%"
 	},
 	loginButton: {
@@ -76,9 +80,13 @@ const styles = {
 		}
 	},
 	loginTitle: {
-			color: "#656c7a",
-			lineHeight: "5px"
-		}
+			textAlign: "left",
+			lineHeight: "5px",
+			whiteSpace: "nowrap"
+		},
+	hiddenError: {
+		color: 'red'
+	}
 }
 
 @injectSheet(styles)
@@ -226,16 +234,21 @@ class SignUp extends Component {
 		return (
 			<div className={classes.loginBox}>
 				<div className={classes.inputContainer}>
-				<h3 className={classes.loginTitle}>Word of Mouth Sign Up</h3>
+				<h2 className={classes.loginTitle}>Word of Mouth Sign Up</h2>
 					<form onSubmit={this.submit.bind(this)}>
+						<h5 className={classes.inputTitles}>First name</h5>
 						<input className={classes.inputBox} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
-							<span className={this.state.span1} id="firstName"></span>
+							<span className={this.state.span1}>Wrong</span>
+						<h5 className={classes.inputTitles}>Last name</h5>
 						<input className={classes.inputBox} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
 							<span className={this.state.span2} id="lastName"></span>
+						<h5 className={classes.inputTitles}>Email</h5>
 						<input className={classes.inputBox} type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
 							<span className={this.state.span3} id='email'></span>
+						<h5 className={classes.inputTitles}>Password</h5>
 						<input className={classes.inputBox} type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
 							<span className={this.state.span4} id='password'></span>
+						<h5 className={classes.inputTitles}>Repeat Password</h5>
 						<input className={classes.inputBox} type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>
 							<span className={this.state.span5} id='repeatPassword'></span>
 						<button className={classes.loginButton}>Confirm</button>
