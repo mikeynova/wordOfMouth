@@ -12,12 +12,14 @@ const styles = {
 			marginLeft: "0px",
 			WebkitBorderRadius: "3px",
 			borderStyle: "solid",
-			borderColor: "#ADD8E6",
+			borderColor: "#E1E8ED",
 			width: "450px",
 			height: "35px",
+			marginRight: "15px",
+			padding: "10px",
  		'&:focus': {
 	    outline: "none",
-      boxShadow: "0px 0px 8px blue"
+      boxShadow: "0px 0px 8px #ADD8E6"
  		},
   },
   label: {
@@ -30,7 +32,7 @@ const styles = {
   },
   error: {
 		lineHeight: "20px",
-		color: '#989ba0',
+		color: 'red',
 	  WebkitTransition: 'opacity .7s ease-in-out',
  		MozTransition: 'opacity .7s ease-in-out',
  		msTransition: 'opacity .7s ease-in-out',
@@ -38,6 +40,15 @@ const styles = {
  		transition: 'opacity .7s ease-in-out'
 	},
 	noError: {
+		lineHeight: "20px",
+		color: '#6EC02A',
+	  WebkitTransition: 'opacity .7s ease-in-out',
+ 		MozTransition: 'opacity .7s ease-in-out',
+ 		msTransition: 'opacity .7s ease-in-out',
+ 		OTransition: 'opacity .7s ease-in-out',
+ 		transition: 'opacity .7s ease-in-out'
+	},
+	hiddenInput: {
 		opacity: '0',
 		lineHeight: '0'
 	},
@@ -56,8 +67,8 @@ const styles = {
 		// lineHeight: "150px"
 	},
 	inputContainer: {
-		transform: "translate(-50%, -50%)",
-		position: "fixed",
+		transform: "translate(8%, 10%)",
+		position: "static",
 		left: "30%",
 		top: "50%"
 	},
@@ -76,17 +87,14 @@ const styles = {
 			cursor: "pointer",
 	'&:focus': {
     outline: "none",
-    boxShadow: "0px 0px 8px blue"
+    boxShadow: "0px 0px 8px #ADD8E6"
 		}
 	},
 	loginTitle: {
 			textAlign: "left",
 			lineHeight: "5px",
 			whiteSpace: "nowrap"
-		},
-	hiddenError: {
-		color: 'red'
-	}
+		}
 }
 
 @injectSheet(styles)
@@ -102,11 +110,11 @@ class SignUp extends Component {
 	  	repeatPassword: '',
 	  	inputStyle: classes.focusBoarder,
 	  	error: classes.error,
-	  	span1: classes.noError,
-	  	span2: classes.noError,
-	  	span3: classes.noError,
-	  	span4: classes.noError,
-	  	span5: classes.noError
+	  	span1: classes.hiddenInput,
+	  	span2: classes.hiddenInput,
+	  	span3: classes.hiddenInput,
+	  	span4: classes.hiddenInput,
+	  	span5: classes.hiddenInput
 	  }   
   }
 
@@ -186,8 +194,11 @@ class SignUp extends Component {
   }
 
 	onChangeFirst(e) {
+		const firstErrorEl = document.getElementById('firstName');
 		this.setState({
 			first: e.target.value
+		}, () => {
+			validate.first(this.state.first, firstErrorEl)
 		})
 	}
 
@@ -217,13 +228,13 @@ class SignUp extends Component {
 
 	submit(e) {
 		e.preventDefault();
-		const firstErrorEl = document.getElementById('firstName');
+		// const firstErrorEl = document.getElementById('firstName');
 		const lastErrorEl = document.getElementById('lastName');
 		const emailErrorEl = document.getElementById('email');
 		const passwordErrorEl = document.getElementById('password');
 		const repeatPasswordErrorEl = document.getElementById('repeatPassword');
 
-		validate.first(this.state.first, firstErrorEl);
+		// validate.first(this.state.first, firstErrorEl);
 		validate.last(this.state.last, lastErrorEl);
 		validate.email(this.state.email, emailErrorEl);
 		validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl);
@@ -235,21 +246,21 @@ class SignUp extends Component {
 			<div className={classes.loginBox}>
 				<div className={classes.inputContainer}>
 				<h2 className={classes.loginTitle}>Word of Mouth Sign Up</h2>
-					<form onSubmit={this.submit.bind(this)}>
-						<h5 className={classes.inputTitles}>First name</h5>
-						<input className={classes.inputBox} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
-							<span className={this.state.span1}>Wrong</span>
-						<h5 className={classes.inputTitles}>Last name</h5>
-						<input className={classes.inputBox} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
+					<form className={classes.form} onSubmit={this.submit.bind(this)}>
+						<h4 className={classes.inputTitles}>First name</h4>
+						<input className={classes.inputBox} type="text" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
+							<span className={this.state.span1} id="firstName"></span>
+						<h4 className={classes.inputTitles}>Last name</h4>
+						<input className={classes.inputBox} type="text" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
 							<span className={this.state.span2} id="lastName"></span>
-						<h5 className={classes.inputTitles}>Email</h5>
-						<input className={classes.inputBox} type="text" placeholder="email" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
+						<h4 className={classes.inputTitles}>Email address</h4>
+						<input className={classes.inputBox} type="text" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
 							<span className={this.state.span3} id='email'></span>
-						<h5 className={classes.inputTitles}>Password</h5>
-						<input className={classes.inputBox} type="password" placeholder="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
+						<h4 className={classes.inputTitles}>Create a password</h4>
+						<input className={classes.inputBox} type="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
 							<span className={this.state.span4} id='password'></span>
-						<h5 className={classes.inputTitles}>Repeat Password</h5>
-						<input className={classes.inputBox} type="password" placeholder="repeat password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>
+						<h4 className={classes.inputTitles}>Repeat your password</h4>
+						<input className={classes.inputBox} type="password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>
 							<span className={this.state.span5} id='repeatPassword'></span>
 						<button className={classes.loginButton}>Confirm</button>
 					</form>

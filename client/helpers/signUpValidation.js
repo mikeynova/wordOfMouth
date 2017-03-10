@@ -4,14 +4,14 @@ import { dispatch } from '../index.js'
 
 exports.first = function(first, error) {
 	if(error.innerHTML.length && (/^\s*$/.test(first))) {
-		return;
+		error.innerHTML = 'enter your first name here';
+		dispatch(actions.firstNameError('error'));	
 	} else if(!(/^\s*$/.test(first))) {
-			error.innerHTML = "";
+			error.setAttribute('<img src=\'client/assets/greenCheck.png\'>');
 			dispatch(actions.firstNameError('no error'));
 	} else if((/^\s*$/.test(first))) {
 			dispatch(actions.firstNameError('error'));
-			error.innerHTML += 'enter your first name here';
-		return true;
+			error.innerHTML = 'enter your first name here';
 	}
 }
 
