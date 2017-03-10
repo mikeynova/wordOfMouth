@@ -83,7 +83,10 @@ const styles = {
 			textAlign: "left",
 			lineHeight: "5px",
 			whiteSpace: "nowrap"
-		}
+		},
+	hiddenError: {
+		color: 'red'
+	}
 }
 
 @injectSheet(styles)
@@ -235,7 +238,7 @@ class SignUp extends Component {
 					<form onSubmit={this.submit.bind(this)}>
 						<h5 className={classes.inputTitles}>First name</h5>
 						<input className={classes.inputBox} type="text" placeholder="first" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
-							<span>Wrong</span>
+							<span className={this.state.span1}>Wrong</span>
 						<h5 className={classes.inputTitles}>Last name</h5>
 						<input className={classes.inputBox} type="text" placeholder="last" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
 							<span className={this.state.span2} id="lastName"></span>
