@@ -233,7 +233,6 @@ class SignUp extends Component {
 		const emailErrorEl = document.getElementById('email');
 		const passwordErrorEl = document.getElementById('password');
 		const repeatPasswordErrorEl = document.getElementById('repeatPassword');
-
 		// validate.first(this.state.first, firstErrorEl);
 		validate.last(this.state.last, lastErrorEl);
 		validate.email(this.state.email, emailErrorEl);

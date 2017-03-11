@@ -1,13 +1,16 @@
 import * as actions from '../actions/signUpValidationActions.js';
 import test from '../components/signUp.js';
-import { dispatch } from '../index.js'
+import { dispatch } from '../index.js';
+const path = require('path');
 
 exports.first = function(first, error) {
 	if(error.innerHTML.length && (/^\s*$/.test(first))) {
 		error.innerHTML = 'enter your first name here';
 		dispatch(actions.firstNameError('error'));	
 	} else if(!(/^\s*$/.test(first))) {
-			error.setAttribute('<img src=\'client/assets/greenCheck.png\'>');
+			var img = document.createElement('img');
+			img.setAttribute('src', require('../assets/greenCheck.png'));
+			error.appendChild(img);
 			dispatch(actions.firstNameError('no error'));
 	} else if((/^\s*$/.test(first))) {
 			dispatch(actions.firstNameError('error'));

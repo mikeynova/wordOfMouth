@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 const { resolve } = require('path');
+
 module.exports = {
   entry: [
   'webpack-hot-middleware/client?http://0.0.0.0:8000', // WebpackDevServer host and port
@@ -20,11 +21,15 @@ module.exports = {
   module: {
     loaders: [
       { 
+        test: /\.(jpe?g|png|gif|svg)$/i, 
+        exclude: /node_modules/, 
+        loader: 'url-loader?limit=10000!img?progressive=true' 
+      },
+      { 
         test: /\.js$/, 
         exclude: /node_modules/, 
         loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=react,presets[]=stage-0,plugins[]=transform-runtime,plugins[]=transform-decorators-legacy']
-      },
-    { test: /\.csv$/, loader: 'csv-loader' }
+      }
     ]
   }
 }
