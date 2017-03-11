@@ -11,6 +11,7 @@ exports.first = function(first, error) {
 			var img = document.createElement('img');
 			img.setAttribute('src', require('../assets/greenCheck.png'));
 			error.appendChild(img);
+			error.innerHTML += 'Your name looks great.'
 			dispatch(actions.firstNameError('no error'));
 	} else if((/^\s*$/.test(first))) {
 			dispatch(actions.firstNameError('error'));
