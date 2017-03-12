@@ -13,7 +13,7 @@ const styles = {
 			WebkitBorderRadius: "3px",
 			borderStyle: "solid",
 			borderColor: "#E1E8ED",
-			width: "450px",
+			width: "600px",
 			height: "35px",
 			marginRight: "15px",
 			padding: "10px",
@@ -32,7 +32,7 @@ const styles = {
   },
   error: {
 		lineHeight: "20px",
-		color: 'red',
+		color: '#E44061',
 	  WebkitTransition: 'opacity .7s ease-in-out',
  		MozTransition: 'opacity .7s ease-in-out',
  		msTransition: 'opacity .7s ease-in-out',
@@ -57,42 +57,23 @@ const styles = {
 		borderWidth: "2px",
 		borderColor: "transparent",
 		borderRadius: "3%",
-		boxShadow: "0px 0px 15px 1px #ADD8E6",
+		// boxShadow: "0px 0px 15px 1px #ADD8E6",
 		minHeight: "500px",
 		minWidth: "910px",
 		position: "fixed",
 		left: "50%",
 		top: "50%",
-		transform: "translate(-50%, -50%)",
-		// lineHeight: "150px"
+		transform: "translate(-50%, -50%)"
 	},
 	inputContainer: {
-		transform: "translate(8%, 10%)",
+		transform: "translate(8%, 0%)",
 		position: "static",
 		left: "30%",
 		top: "50%"
 	},
-	loginButton: {
-			display: "-webkit-box",
-			margin: "auto",
-			marginBottom: "5px",
-			width: "150px",
-			borderStyle: "solid",
-			WebkitBorderRadius: "300px",
-			backgroundColor: "#ADD8E6",
-			borderColor: "#ADD8E6",
-			color: "white",
-			height: "25px",
-			marginTop: "10px",
-			cursor: "pointer",
-	'&:focus': {
-    outline: "none",
-    boxShadow: "0px 0px 8px #ADD8E6"
-		}
-	},
 	loginTitle: {
 			textAlign: "left",
-			lineHeight: "5px",
+			lineHeight: "52px",
 			whiteSpace: "nowrap"
 		}
 }
@@ -198,46 +179,49 @@ class SignUp extends Component {
 		this.setState({
 			first: e.target.value
 		}, () => {
-			validate.first(this.state.first, firstErrorEl)
-		})
-	}
-
-	onChangeLast(e) {
-		this.setState({
-			last: e.target.value
+			validate.first(this.state.first, firstErrorEl);
 		})
 	}
 
 	onChangeEmail(e) {
+		const emailErrorEl = document.getElementById('email');
 		this.setState({
 			email: e.target.value
+		}, () => {
+			validate.email(this.state.email, emailErrorEl);
 		})
 	}  
 
 	onChangePassword(e) {
+		const passwordErrorEl = document.getElementById('password');
+		const repeatPasswordErrorEl = document.getElementById('repeatPassword');
 		this.setState({
 			password: e.target.value
+		}, () => {
+		validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
 		})
 	}
 
 	onChangeRepeatPassword(e) {
+		const passwordErrorEl = document.getElementById('password');
+		const repeatPasswordErrorEl = document.getElementById('repeatPassword');
 		this.setState({
 			repeatPassword: e.target.value
+		}, () => {
+		validate.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
 		})
 	}
 
 	submit(e) {
+	const firstErrorEl = document.getElementById('firstName');
+	const emailErrorEl = document.getElementById('email');
+	const passwordErrorEl = document.getElementById('password');
+	const repeatPasswordErrorEl = document.getElementById('repeatPassword');
 		e.preventDefault();
-		// const firstErrorEl = document.getElementById('firstName');
-		const lastErrorEl = document.getElementById('lastName');
-		const emailErrorEl = document.getElementById('email');
-		const passwordErrorEl = document.getElementById('password');
-		const repeatPasswordErrorEl = document.getElementById('repeatPassword');
-		// validate.first(this.state.first, firstErrorEl);
-		validate.last(this.state.last, lastErrorEl);
+		validate.first(this.state.first, firstErrorEl);
 		validate.email(this.state.email, emailErrorEl);
-		validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl);
-		validate.repeatPassword(this.state.repeatPassword, this.state.password, repeatPasswordErrorEl);
+		validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+		validate.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
 	}
 	render() {
     const {sheet: {classes}, children} = this.props
@@ -249,9 +233,6 @@ class SignUp extends Component {
 						<h4 className={classes.inputTitles}>First name</h4>
 						<input className={classes.inputBox} type="text" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
 							<span className={this.state.span1} id="firstName"></span>
-						<h4 className={classes.inputTitles}>Last name</h4>
-						<input className={classes.inputBox} type="text" onChange={this.onChangeLast.bind(this)}value={this.state.last}/>
-							<span className={this.state.span2} id="lastName"></span>
 						<h4 className={classes.inputTitles}>Email address</h4>
 						<input className={classes.inputBox} type="text" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
 							<span className={this.state.span3} id='email'></span>
@@ -261,7 +242,6 @@ class SignUp extends Component {
 						<h4 className={classes.inputTitles}>Repeat your password</h4>
 						<input className={classes.inputBox} type="password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>
 							<span className={this.state.span5} id='repeatPassword'></span>
-						<button className={classes.loginButton}>Confirm</button>
 					</form>
 				</div>
 			</div>
