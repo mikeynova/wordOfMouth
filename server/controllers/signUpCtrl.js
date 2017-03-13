@@ -9,7 +9,7 @@ module.exports = {
 					var matches = _.filter(emails, (user) => {
 						return user.email === req.body.email
 					})
-					if(matches) {
+					if(matches.length) {
 						res.send(matches)
 					} else {
 							SignUp.newUser(req.body)

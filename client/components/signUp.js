@@ -57,7 +57,6 @@ const styles = {
 		borderWidth: "2px",
 		borderColor: "transparent",
 		borderRadius: "3%",
-		// boxShadow: "0px 0px 15px 1px #ADD8E6",
 		minHeight: "500px",
 		minWidth: "910px",
 		position: "fixed",
@@ -77,7 +76,8 @@ const styles = {
 			whiteSpace: "nowrap"
 		},
 	emailTaken: {
-		color: 'red'
+		color: '#E44061',
+		transform: "translate(35%, 20%)"
 	}
 }
 
@@ -85,10 +85,10 @@ const styles = {
 class SignUp extends Component {
 	constructor(props) {
   super(props)
+  let counter = 0;
 	const {sheet: {classes}, children} = this.props
 	  this.state = {
 	  	first: '',
-	  	last: '',
 	  	email: '',
 	  	password: '',
 	  	repeatPassword: '',
@@ -97,8 +97,7 @@ class SignUp extends Component {
 	  	span1: classes.hiddenInput,
 	  	span2: classes.hiddenInput,
 	  	span3: classes.hiddenInput,
-	  	span4: classes.hiddenInput,
-	  	span5: classes.hiddenInput
+	  	span4: classes.hiddenInput
 	  }   
   }
 
@@ -116,76 +115,45 @@ class SignUp extends Component {
 	  		})
   	}
 ///////////////////////////////////////////
-  	if(props.lastError === 'error' && props.lastError !== this.props.lastError) {
+  	if(props.emailError === 'error' && props.emailError !== this.props.emailError) {
   		const {sheet: {classes}, children} = this.props;
-	  		this.setState({
+				this.setState({
 	  			span2: classes.error
 	  		})
   	}
-  	if(props.lastError === 'no error' && props.lastError !== this.props.lastError) {
+  	if(props.emailError === 'no error' && props.emailError !== this.props.emailError) {
 		  const {sheet: {classes}, children} = this.props;
 				this.setState({
 	  			span2: classes.noError
 	  		})
   	}
 ///////////////////////////////////////////
-  	if(props.emailError === 'error' && props.emailError !== this.props.emailError) {
+		if(props.passwordError === 'error' && props.passwordError !== this.props.passwordError) {
   		const {sheet: {classes}, children} = this.props;
 				this.setState({
 	  			span3: classes.error
 	  		})
   	}
-  	if(props.emailError === 'no error' && props.emailError !== this.props.emailError) {
+  	if(props.passwordError === 'no error' && props.passwordError !== this.props.passwordError) {
 		  const {sheet: {classes}, children} = this.props;
 				this.setState({
 	  			span3: classes.noError
 	  		})
   	}
 ///////////////////////////////////////////
-		if(props.passwordError === 'error' && props.passwordError !== this.props.passwordError) {
+		if(props.repeatPasswordError === 'error' && props.repeatPasswordError !== this.props.repeatPasswordError) {
   		const {sheet: {classes}, children} = this.props;
 				this.setState({
 	  			span4: classes.error
 	  		})
   	}
-  	if(props.passwordError === 'no error' && props.passwordError !== this.props.passwordError) {
+  	if(props.repeatPasswordError === 'no error' && props.repeatPasswordError !== this.props.repeatPasswordError) {
 		  const {sheet: {classes}, children} = this.props;
 				this.setState({
 	  			span4: classes.noError
 	  		})
   	}
-///////////////////////////////////////////
-		if(props.repeatPasswordError === 'error' && props.repeatPasswordError !== this.props.repeatPasswordError) {
-  		const {sheet: {classes}, children} = this.props;
-				this.setState({
-	  			span5: classes.error
-	  		})
-  	}
-  	if(props.repeatPasswordError === 'no error' && props.repeatPasswordError !== this.props.repeatPasswordError) {
-		  const {sheet: {classes}, children} = this.props;
-				this.setState({
-	  			span5: classes.noError
-	  		})
-  	}
-///////////////////////////////////////////
-  	if(this.props.repeatPasswordError === 'no error' && this.props.passwordError === 'no error' && this.props.emailError === 'no error' && this.props.firstError === 'no error') {
-  		axios.post('/signUp', {first: this.state.first, email: this.state.email, password: this.state.password})
-  			.then((response) => {
-  				console.log('response', response);
-  				if(response.data.length) {
-						const emailErrorEl = document.getElementById('email');
-  					const emailTaken = document.getElementById('emailTaken')
-  					const emailInput = document.getElementById('emailInput')
-  					emailTaken.innerHTML = "Your shit's taken.";
-  					emailInput.value = '';
-						validate.emailToError(emailErrorEl);
-  				} else if(!response.data.length && response.status === 200) {
-						console.log('new user');
-  				}
-  			}) 
-  	} 
-  }
-
+}
 	onChangeFirst(e) {
 		const emailTaken = document.getElementById('emailTaken');
 		emailTaken.innerHTML = '';
@@ -233,35 +201,52 @@ class SignUp extends Component {
 	}
 
 	submit(e) {
-	const firstErrorEl = document.getElementById('firstName');
-	const emailErrorEl = document.getElementById('email');
-	const passwordErrorEl = document.getElementById('password');
-	const repeatPasswordErrorEl = document.getElementById('repeatPassword');
-		e.preventDefault();
-		validate.first(this.state.first, firstErrorEl);
-		validate.email(this.state.email, emailErrorEl);
-		validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
-		validate.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+		if(e.keyCode === 13) {
+			const firstErrorEl = document.getElementById('firstName');
+			const emailErrorEl = document.getElementById('email');
+			const passwordErrorEl = document.getElementById('password');
+			const repeatPasswordErrorEl = document.getElementById('repeatPassword');
+				validate.first(this.state.first, firstErrorEl);
+				validate.email(this.state.email, emailErrorEl);
+				validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+				validate.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+			if(this.state.span1 === 'noError-3313764068' && this.state.span2 === 'noError-3313764068' && this.state.span3 === 'noError-3313764068' && this.state.span4 === 'noError-3313764068') {
+				axios.post('/signUp', {first: this.state.first, email: this.state.email, password: this.state.password})
+  			.then((response) => {
+  				console.log('response', response);
+  				if(response.data.length) {
+						const emailErrorEl = document.getElementById('email');
+  					const emailTaken = document.getElementById('emailTaken');
+  					emailTaken.innerHTML = "Your shit's taken.";
+						validate.emailToError(emailErrorEl);
+  					document.getElementById('emailInput').value = '';
+  				} else if(!response.data.length && response.status === 200) {
+						console.log('new user');
+  				} 
+				})	
+			}
+		}
 	}
+
 	render() {
     const {sheet: {classes}, children} = this.props
 		return (
 			<div className={classes.loginBox}>
 				<div className={classes.inputContainer}>
 				<h2 className={classes.loginTitle}>Word of Mouth Sign Up</h2>
-					<form className={classes.form} onSubmit={this.submit.bind(this)}>
+					<form className={classes.form}>
 						<h4 className={classes.inputTitles}>First name</h4>
-						<input className={classes.inputBox} type="text" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
+							<input className={classes.inputBox} type="text" onKeyDown={this.submit.bind(this)} onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
 							<span className={this.state.span1} id="firstName"></span>
 						<h4 className={classes.inputTitles}>Email address</h4>
-						<input className={classes.inputBox} id="emailInput" type="text" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
-							<span className={this.state.span3} id='email'></span>
+							<input className={classes.inputBox} id="emailInput" type="text" onKeyDown={this.submit.bind(this)} onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
+							<span className={this.state.span2} id='email'></span>
 						<h4 className={classes.inputTitles}>Create a password</h4>
-						<input className={classes.inputBox} type="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
-							<span className={this.state.span4} id='password'></span>
+							<input className={classes.inputBox} type="password" onKeyDown={this.submit.bind(this)} onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
+							<span className={this.state.span3} id='password'></span>
 						<h4 className={classes.inputTitles}>Repeat your password</h4>
-						<input className={classes.inputBox} type="password" onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>
-							<span className={this.state.span5} id='repeatPassword'></span>
+							<input className={classes.inputBox} type="password" onKeyDown={this.submit.bind(this)} onChange={this.onChangeRepeatPassword.bind(this)}value={this.state.repeatPassword}/>
+							<span className={this.state.span4} id='repeatPassword'></span>
 					</form>
 				</div>
 				<div className={classes.emailTaken} id="emailTaken"></div>
