@@ -1,7 +1,7 @@
 var connection = require('./dbConfig');
 var db = 'Users';
 
-var user = ('CREATE TABLE IF NOT EXISTS User (id INT(100) NOT NULL AUTO_INCREMENT, first VARCHAR(30), last VARCHAR(30), email VARCHAR(40), password VARCHAR(100), PRIMARY KEY(id))');
+var user = ('CREATE TABLE IF NOT EXISTS User (id INT(100) NOT NULL AUTO_INCREMENT, first VARCHAR(30), email VARCHAR(40), password VARCHAR(100), PRIMARY KEY(id))');
 
 connection.query('CREATE DATABASE IF NOT EXISTS ??', db, function(err, results) {
   if (err) {

@@ -75,7 +75,10 @@ const styles = {
 			textAlign: "left",
 			lineHeight: "52px",
 			whiteSpace: "nowrap"
-		}
+		},
+	emailTaken: {
+		color: 'red'
+	}
 }
 
 @injectSheet(styles)
@@ -165,16 +168,27 @@ class SignUp extends Component {
 	  		})
   	}
 ///////////////////////////////////////////
-  	if(this.props.repeatPasswordError === 'no error' && this.props.passwordError === 'no error' && this.props.emailError === 'no error' && this.props.lastError === 'no error' && this.props.firstError === 'no error') {
-  		console.log('woah');
-  		axios.post('/signUp', {first: this.state.first, last: this.state.last, email: this.state.email, password: this.state.password})
-  			.then(() => {
-  				console.log('back to client')
+  	if(this.props.repeatPasswordError === 'no error' && this.props.passwordError === 'no error' && this.props.emailError === 'no error' && this.props.firstError === 'no error') {
+  		axios.post('/signUp', {first: this.state.first, email: this.state.email, password: this.state.password})
+  			.then((response) => {
+  				console.log('response', response);
+  				if(response.data.length) {
+						const emailErrorEl = document.getElementById('email');
+  					const emailTaken = document.getElementById('emailTaken')
+  					const emailInput = document.getElementById('emailInput')
+  					emailTaken.innerHTML = "Your shit's taken.";
+  					emailInput.value = '';
+						validate.emailToError(emailErrorEl);
+  				} else if(!response.data.length && response.status === 200) {
+						console.log('new user');
+  				}
   			}) 
-  	}
+  	} 
   }
 
 	onChangeFirst(e) {
+		const emailTaken = document.getElementById('emailTaken');
+		emailTaken.innerHTML = '';
 		const firstErrorEl = document.getElementById('firstName');
 		this.setState({
 			first: e.target.value
@@ -184,6 +198,8 @@ class SignUp extends Component {
 	}
 
 	onChangeEmail(e) {
+		const emailTaken = document.getElementById('emailTaken');
+		emailTaken.innerHTML = '';
 		const emailErrorEl = document.getElementById('email');
 		this.setState({
 			email: e.target.value
@@ -193,22 +209,26 @@ class SignUp extends Component {
 	}  
 
 	onChangePassword(e) {
+		const emailTaken = document.getElementById('emailTaken');
+		emailTaken.innerHTML = '';
 		const passwordErrorEl = document.getElementById('password');
 		const repeatPasswordErrorEl = document.getElementById('repeatPassword');
 		this.setState({
 			password: e.target.value
 		}, () => {
-		validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+			validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
 		})
 	}
 
 	onChangeRepeatPassword(e) {
+		const emailTaken = document.getElementById('emailTaken');
+		emailTaken.innerHTML = '';
 		const passwordErrorEl = document.getElementById('password');
 		const repeatPasswordErrorEl = document.getElementById('repeatPassword');
 		this.setState({
 			repeatPassword: e.target.value
 		}, () => {
-		validate.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+			validate.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
 		})
 	}
 
@@ -234,7 +254,7 @@ class SignUp extends Component {
 						<input className={classes.inputBox} type="text" onChange={this.onChangeFirst.bind(this)} value={this.state.first}/>
 							<span className={this.state.span1} id="firstName"></span>
 						<h4 className={classes.inputTitles}>Email address</h4>
-						<input className={classes.inputBox} type="text" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
+						<input className={classes.inputBox} id="emailInput" type="text" onChange={this.onChangeEmail.bind(this)}value={this.state.email}/>
 							<span className={this.state.span3} id='email'></span>
 						<h4 className={classes.inputTitles}>Create a password</h4>
 						<input className={classes.inputBox} type="password" onChange={this.onChangePassword.bind(this)}value={this.state.password}/>
@@ -244,6 +264,7 @@ class SignUp extends Component {
 							<span className={this.state.span5} id='repeatPassword'></span>
 					</form>
 				</div>
+				<div className={classes.emailTaken} id="emailTaken"></div>
 			</div>
 		)
 	}

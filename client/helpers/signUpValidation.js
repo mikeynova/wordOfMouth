@@ -129,3 +129,15 @@ exports.repeatPassword = function(password, repeatPassword, passError, rePeatErr
 			dispatch(actions.repeatPasswordError('no error'));
 	}
 }
+
+exports.emailToError = function(error) {
+	error.innerHTML = '';
+	var img = document.createElement('img');
+	img.setAttribute('src', require('../assets/redX.png'));
+	img.style.height = '16px';
+	img.style.marginRight = '5px';
+	img.style.transform = 'translateY(9%)';
+	error.appendChild(img);
+	error.innerHTML += 'Add a different email address.';
+	dispatch(actions.emailError('error'))
+}
