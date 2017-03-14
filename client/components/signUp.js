@@ -78,6 +78,13 @@ const styles = {
 	emailTaken: {
 		color: '#E44061',
 		transform: "translate(35%, 20%)"
+	},
+	'@font-face': {
+		fontFamily: 'Roboto',
+	  src: "url('https://fonts.googleapis.com/css?family=Roboto?#iefix')"
+	},
+	h4: {
+	  fontFamily: 'Roboto'
 	}
 }
 
