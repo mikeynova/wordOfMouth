@@ -5,7 +5,6 @@ var connection = mysql.createConnection({
   port: '3306',
   user     : 'mikesawsuser',
   password : 'awspassword'
-
 });
 
 module.exports = connection;

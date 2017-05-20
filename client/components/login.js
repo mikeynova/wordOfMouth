@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import _ from 'underscore';
+import axios from 'axios'
 
 export default class Login extends Component {
 
 	signUpPage() {
 		browserHistory.push('/signup')
+	}
+
+	componentDidMount() {
+		axios.get('/here')
 	}
 
 	render() {

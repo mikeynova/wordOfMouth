@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
-import validate from '../helpers/signUpValidation.js';
+import React, { PropTypes as T } from 'react';
+// import React, { Component } from 'react'
+import AuthValidation from '../helpers/signUpValidation.js';
 import { connect } from 'react-redux';
 import { actions } from '../actions/signUpValidationActions.js';
 import ReactTransitionGroup from 'react-addons-transition-group';
 import injectSheet from 'react-jss';
 import axios from 'axios';
+import { EventEmitter } from 'events'
 
 const styles = {
   inputBox: {
@@ -81,18 +83,20 @@ const styles = {
 	},
 	'@font-face': {
 		fontFamily: 'Roboto',
-	  src: "url('https://fonts.googleapis.com/css?family=Roboto?#iefix')"
+	  src: "local('Roboto-Regular')"
 	},
 	h4: {
 	  fontFamily: 'Roboto'
+	},
+	form: {
+		width: "1000px"
 	}
 }
 
 @injectSheet(styles)
-class SignUp extends Component {
+class SignUp extends React.Component {
 	constructor(props) {
   super(props)
-  let counter = 0;
 	const {sheet: {classes}, children} = this.props
 	  this.state = {
 	  	first: '',
@@ -106,6 +110,19 @@ class SignUp extends Component {
 	  	span3: classes.hiddenInput,
 	  	span4: classes.hiddenInput
 	  }   
+  }
+
+	static contextTypes = {
+		router: T.object
+	}
+
+	static PropTypes = {
+    location: T.object,
+    auth: T.instanceOf(AuthValidation)
+  }
+
+  componentDidMount() {
+  	console.log(this.props);
   }
 
   componentWillUpdate(props) {
@@ -168,7 +185,8 @@ class SignUp extends Component {
 		this.setState({
 			first: e.target.value
 		}, () => {
-			validate.first(this.state.first, firstErrorEl);
+			// validate.first(this.state.first, firstErrorEl);
+			// this.props.auth.first(this.state.first, firstErrorEl);
 		})
 	}
 
@@ -179,7 +197,8 @@ class SignUp extends Component {
 		this.setState({
 			email: e.target.value
 		}, () => {
-			validate.email(this.state.email, emailErrorEl);
+			// validate.email(this.state.email, emailErrorEl);
+			// this.props.auth.email(this.state.email, emailErrorEl);
 		})
 	}  
 
@@ -191,7 +210,8 @@ class SignUp extends Component {
 		this.setState({
 			password: e.target.value
 		}, () => {
-			validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+			// validate.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+			// this.props.auth.password(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
 		})
 	}
 
@@ -203,7 +223,8 @@ class SignUp extends Component {
 		this.setState({
 			repeatPassword: e.target.value
 		}, () => {
-			validate.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+			// validate.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl);
+			// this.props.auth.repeatPassword(this.state.password, this.state.repeatPassword, passwordErrorEl, repeatPasswordErrorEl)
 		})
 	}
 
@@ -237,6 +258,7 @@ class SignUp extends Component {
 
 	render() {
     const {sheet: {classes}, children} = this.props
+    // const { auth } = this.props
 		return (
 			<div className={classes.loginBox}>
 				<div className={classes.inputContainer}>
