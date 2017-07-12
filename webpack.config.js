@@ -14,9 +14,14 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+      },
+    }),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
     loaders: [
@@ -28,8 +33,13 @@ module.exports = {
       { 
         test: /\.js$/, 
         exclude: /node_modules/, 
-        loaders: ['react-hot', 'babel?presets[]=es2015,presets[]=react,presets[]=stage-0,plugins[]=transform-runtime,plugins[]=transform-decorators-legacy']
-      }
+        loaders: ['react-hot-loader', 'babel-loader?presets[]=es2015,presets[]=react,presets[]=stage-0,plugins[]=transform-runtime,plugins[]=transform-decorators-legacy']
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
+      },
     ]
   }
 }

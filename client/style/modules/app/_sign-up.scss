@@ -1,0 +1,85 @@
+.inputBox {
+  margin: 5px;
+  margin-left: 0px;
+  -webkit-border-radius: 3px;
+  border-style: solid;
+  border-color: #E1E8ED;
+  width: 600px;
+  height: 35px;
+  margin-right: 15px;
+  padding: 10px;
+    &:focus {
+    outline: none;
+    box-shadow: 0px 0px 8px #ADD8E6;
+  }
+}
+
+.label {
+  font-weight: bold;
+}
+
+.inputTitles {
+  margin: 0px;
+  text-align: left;
+  padding-top: 10px;
+}
+
+.error {
+  line-height: 20px;
+  color: #E44061;
+  -webkit-transition: opacity .7s ease-in-out;
+  -moz-transition: opacity .7s ease-in-out;
+  -ms-ransition: opacity .7s ease-in-out;
+  -o-transition: opacity .7s ease-in-out;
+  transition: opacity .7s ease-in-out;
+}
+
+.noError {
+  line-height: 20px;
+  color: #6EC02A;
+  -webkit-transition: opacity .7s ease-in-out;
+  -moz-transition: opacity .7s ease-in-out;
+  -ms-transition: opacity .7s ease-in-out;
+  -o-transition: opacity .7s ease-in-out;
+  transition: opacity .7s ease-in-out;
+}
+
+.hiddenInput {
+  opacity: 0;
+  line-height: 0;
+}
+
+.signUpBox {
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  border-radius: 3%;
+  min-height: 500px;
+  min-width: 910px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.signUpInputContainer {
+  transform: translate(8%, 0%);
+  position: static;
+  left: 30%;
+  top: 50%;
+}
+
+.signUpTitle {
+  text-align: left;
+  line-height: 52px;
+  white-space: nowrap;
+}
+
+.emailTaken {
+  color: #E44061;
+  transform: translate(35%, 20%);
+}
+
+form {
+  width: 1000px;
+}

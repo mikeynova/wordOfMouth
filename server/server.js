@@ -25,9 +25,11 @@ app.use(require('webpack-dev-middleware')(compiler, {
 }));
 app.use(require('webpack-hot-middleware')(compiler));
 
-app.get('*', function(req, res) {
-  res.sendFile(path.join(__dirname, '../client/index.html'));
-});
+app.get('/spotify', function(req, res) {
+	res.redirect('https://accounts.spotify.com/authorize?client_id=fb905a43b45f4b19b1254dadcaa0d30a&response_type=code&redirect_uri=http://localhost:8000/')
+})
+
+app.use(express.static(path.join(__dirname, '../client/index.html')));
 
 app.use('/here', () => {
 	console.log('say something')

@@ -1,0 +1,50 @@
+.loginBox {
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+  border-radius: 3%;
+  text-align: center;
+  box-shadow: 0px 0px 15px 1px #ADD8E6;
+  min-height: 400px;
+  min-width: 400px;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 150px;
+}
+
+.inputContainer {
+  transform: translate(-50%, -50%);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+}
+
+.loginButton {
+  display: -webkit-box;
+  margin: auto;
+  margin-bottom: 5px;
+  width: 150px;
+  border-style: solid;
+  -webkit-border-radius: 300px;
+  background-color: #ADD8E6;
+  border-color: #ADD8E6;
+  color: white;
+  height: 25px;
+  cursor: pointer;
+}
+
+.loginInputs {
+  text-align: center;
+  margin: 5px;
+  -webkit-border-radius: 300px;
+  border-style: solid;
+  border-color: #ADD8E6;
+  width: 225px;
+  height: 25px;
+}
+
+.loginTitle {
+  color: grey;
+}
